@@ -1,9 +1,10 @@
-# python_project_license_checker
-Check/list Python packages in your current project.
+# Python Project License Checker
+Check or lists Python package license for your current project.
+
+Simple, lightweight, and fast.
 
 ## About
-Helps with reporting license issues by gathers license, version and requirements for all your installed packages in your current Python project.
-Simple, lightweight, and fast.
+Helps with reporting any potential license issues by gathers license, version, & requirements, for all the installed packages in your current Python project.
 
 
 ## How to install
