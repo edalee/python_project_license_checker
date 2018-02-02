@@ -6,13 +6,13 @@ import re
 import csv
 from pip.utils import get_installed_distributions
 
-# Specify the information you would like to
-# gather on each package for your project.
+# Specify the information you would like to gather on each package for your project.
+# Here we add '\b' Word boundary to match only the exact beginning letter of our word.
 data_to_collect = [
-    'License: ',
-    'Home-page: ',
-    'Version: ',
-    'Requires-Dist: '
+    '\bLicense: ',
+    '\bHome-page: ',
+    '\bVersion: ',
+    '\bRequires-Dist: '
 ]
 
 # By default hide the following python packages.
@@ -36,7 +36,7 @@ def collect_meta():
             package = {}
             l = []
             for line in installed_distribution.get_metadata_lines(metafile):
-                if re.compile('|'.join(data_to_collect), re.IGNORECASE).search(line):
+                if re.compile(r'|'.join(data_to_collect), re.IGNORECASE).search('\b'+line+'\b'):
                     (k, v) = line.split(': ', 1)
                     if k not in package:
                         package[k] = v
@@ -56,11 +56,6 @@ def write_csv(packages):
             dict_writer = csv.DictWriter(csvfile, fieldnames=packages[0].keys())
             dict_writer.writeheader()
             dict_writer.writerows(packages)
-            # for package in packages:
-            #     if package['Requires-Dist']:
-            #         dict_writer.writerow(', '.join(package['Requires-Dist']))
-            #     else:
-            #         dict_writer.writerow(package)
     except IOError as (errno, strerror):
         print("I/O Error({0}): {1}").format(errno, strerror)
     return
